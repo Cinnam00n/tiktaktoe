@@ -1,10 +1,15 @@
 
 
-function Square({ value }) {
+function Square({ value }: 
+  { value: number } 
+) 
+{
   return <button className="square">{value}</button>;
   }
   
-  function SquareRow({ values }) {
+  function SquareRow({ values } : {
+values: number[]
+  }) {
     return (
       <>
       <div className="board-row">
