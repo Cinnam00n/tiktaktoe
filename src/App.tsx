@@ -1,11 +1,5 @@
 import { MouseEventHandler, useState } from 'react'; 
 
-enum GameResult {
-  X,
-  O,
-  Draw
-}
-
 function Square({value, onSquareClick} : {
   value: string | null,
   onSquareClick: React.MouseEventHandler<HTMLButtonElement>; 
@@ -26,9 +20,17 @@ function Square({value, onSquareClick} : {
     const [xIsNext, setXIsNext] = useState<boolean>(true);
     const [squares, setSquares] = useState<null[][] | string[][]>( Array(3).fill(null).map(() => Array(3).fill(null)))
 
+    const winner = calculateWinner(squares);
+    let status : string;
+    if (winner) {
+      status = "Winner: " + winner;
+    } else {
+      status = "Next player: " + (xIsNext ? "X" : "O");
+    }
+
     function handleClick(i: number, j:number)
     {
-    if (squares[i][j]) {
+    if (squares[i][j] || calculateWinner(squares)) {
       return;
     }
     let newSquares = structuredClone(squares);
@@ -43,6 +45,7 @@ function Square({value, onSquareClick} : {
 
     return (
       <>
+      <div className="status">{status}</div>
       <div className="board-row">
         <Square value={squares[0][0]} onSquareClick={() => handleClick(0,0)}/>
         <Square value={squares[0][1]} onSquareClick={() => handleClick(0,1)}/>
