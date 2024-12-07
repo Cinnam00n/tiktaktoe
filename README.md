@@ -1,5 +1,4 @@
 # My own React refresher
 
-## Todos
-
-- go for typescript
+## Ideas
+- implement time-travel using Redux
